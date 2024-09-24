@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: svelteflask
+  namespace: dev
+subsets:
+  - addresses:
+    - ip: 192.168.0.91
+    ports:
+      - name: http
+        port: 5175
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: svelteflask
+  namespace: dev
+spec:
+  ports:
+    - port: 5175
+      name: http
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: jjgantt
+  namespace: dev
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`sf.dev.dis.corpnet1.com`)
+      kind: Rule
+      services:
+        - name: svelteflask
+          port: 5175

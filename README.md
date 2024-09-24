@@ -46,4 +46,10 @@ After which we just run flask
 py app.py
 ```
 
+It is also possible to run the flask backend while working on the components as long as they are being built
+
+```
+pnpm build --watch
+```
+
 There's prolly a way to do auto reload with npm watch or rollup or whatever, tbd
